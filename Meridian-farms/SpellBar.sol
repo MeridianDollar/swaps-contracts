@@ -2,11 +2,12 @@ pragma solidity 0.6.12;
 
 import "@pancakeswap/pancake-swap-lib/contracts/token/BEP20/BEP20.sol";
 
-import "./CharmToken.sol";
+import "./dependencies/SafeERC20.sol";
 
 // SpellBar with Governance.
 contract SpellBar is BEP20('SpellBar Token', 'xCHARM') {
-    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (ZenMaster).
+    using SafeERC20 for IERC20;
+    /// @notice Creates `_amount` token to `_to`. Must only be called by the owner (FarmMaster).
     function mint(address _to, uint256 _amount) public onlyOwner {
         _mint(_to, _amount);
         _moveDelegates(address(0), _delegates[_to], _amount);
@@ -17,23 +18,22 @@ contract SpellBar is BEP20('SpellBar Token', 'xCHARM') {
         _moveDelegates(_delegates[_from], address(0), _amount);
     }
 
-    // The CHARM TOKEN!
-    CharmToken public charm;
-
+    // The Rewards TOKEN!
+    IERC20 public rewardToken;
 
     constructor(
-        CharmToken _charm
+        IERC20 _rewardToken
     ) public {
-        charm = _charm;
+        rewardToken = _rewardToken;
     }
 
-    // Safe charm transfer function, just in case if rounding error causes pool to not have enough CHARMs.
-    function safeCharmTransfer(address _to, uint256 _amount) public onlyOwner {
-        uint256 charmBal = charm.balanceOf(address(this));
-        if (_amount > charmBal) {
-            charm.transfer(_to, charmBal);
+    // Safe rewards transfer function, just in case if rounding error causes pool to not have enough rewards.
+    function safeRewardsTransfer(address _to, uint256 _amount) public onlyOwner {
+        uint256 rewardsBal = rewardToken.balanceOf(address(this));
+        if (_amount > rewardsBal) {
+            rewardToken.transfer(_to, rewardsBal);
         } else {
-            charm.transfer(_to, _amount);
+            rewardToken.transfer(_to, _amount);
         }
     }
 

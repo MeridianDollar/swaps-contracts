@@ -9,8 +9,8 @@ contract SmartMasterInitializable is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     using SafeBEP20 for IBEP20;
 
-    // The address of the smart zenmaster factory
-    address public SMART_ZENMASTER_FACTORY;
+    // The address of the smart FarmMaster factory
+    address public SMART_FarmMaster_FACTORY;
 
     // Whether a limit is set for users
     bool public hasUserLimit;
@@ -63,7 +63,7 @@ contract SmartMasterInitializable is Ownable, ReentrancyGuard {
     event Withdraw(address indexed user, uint256 amount);
 
     constructor() public {
-        SMART_ZENMASTER_FACTORY = msg.sender;
+        SMART_FarmMaster_FACTORY = msg.sender;
     }
 
     /*
@@ -86,7 +86,7 @@ contract SmartMasterInitializable is Ownable, ReentrancyGuard {
         address _admin
     ) external {
         require(!isInitialized, "Already initialized");
-        require(msg.sender == SMART_ZENMASTER_FACTORY, "Not factory");
+        require(msg.sender == SMART_FarmMaster_FACTORY, "Not factory");
 
         // Make this contract initialized
         isInitialized = true;

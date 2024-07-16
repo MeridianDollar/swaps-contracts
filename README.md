@@ -7,7 +7,7 @@
 ### Factory
 0x7a2A35706f5d1CeE2faa8A254dd6F6D7d7Becc25
 
-### ZenMaster
+### FarmMaster
 0x79f5A8BD0d6a00A41EA62cdA426CEf0115117a61
 
 ### Charm Vault
@@ -28,30 +28,30 @@
 ### Background
 
 The Pancakeswap smart contracts were adapted to create the OmniDex DeFi platform. These
-contracts include a migration capability which was also inherited by the Omnidex ZenMaster
+contracts include a migration capability which was also inherited by the Omnidex FarmMaster
 contract. This migration functionality has the undesirable consequence of potentially allowing a
 malicious contract owner to take control of all investments on the platform. In order to reinforce
 trust and confidence in the platform the developers wish to permanently remove this capability.
 
 ### Approach
 
-The direct removal of the migrator code from the already deployed ZenMaster contract was deemed
+The direct removal of the migrator code from the already deployed FarmMaster contract was deemed
 to be complex, risky and could lead to a very poor user experience. The proposed approach is
 therefore to permanently disable this code by making it inaccessible to all users, devs and owners.
-Critically, the migration functionality within the ZenMaster contract is only accessible to the owner
+Critically, the migration functionality within the FarmMaster contract is only accessible to the owner
 of the contract through the ‘onlyOwner’ parameter. This attribute of the contract will be used to
 permanently disable the vulnerability.
 
 ### Solution
 
 In order to overcome the challenge, a new proxy router contract, Sensei.sol, will be created and this
-contract will become the new owner of the ZenMaster contract. The purpose of Sensei will be to
-route all ‘ownerOnly’ calls to the ZenMaster and, as the owner of the ZenMaster, Sensei will be the
+contract will become the new owner of the FarmMaster contract. The purpose of Sensei will be to
+route all ‘ownerOnly’ calls to the FarmMaster and, as the owner of the FarmMaster, Sensei will be the
 only entity that is permitted to call these functions. Critically, the functions that provide access to
 the migrator functionality will not be relayed thus making them inaccessible to all.
-In addition to this, the ‘transferOwner’ function inherited by the ZenMaster will also NOT be relayed
-by Sensei making Sensei the permanent owner of ZenMaster. It will be possible to transfer
-ownership of the Sensei contract which, in effect, will transfer ownership of the ZenMaster but with
+In addition to this, the ‘transferOwner’ function inherited by the FarmMaster will also NOT be relayed
+by Sensei making Sensei the permanent owner of FarmMaster. It will be possible to transfer
+ownership of the Sensei contract which, in effect, will transfer ownership of the FarmMaster but with
 the restricted access described above.
 Most importantly, the OmniDex application front end does not make any calls to ‘onlyOwner’
 functions and therefore will not be impacted by this change.

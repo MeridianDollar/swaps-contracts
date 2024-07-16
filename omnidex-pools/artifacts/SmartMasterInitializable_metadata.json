@@ -178,7 +178,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "SMART_ZENMASTER_FACTORY",
+				"name": "SMART_FarmMaster_FACTORY",
 				"outputs": [
 					{
 						"internalType": "address",

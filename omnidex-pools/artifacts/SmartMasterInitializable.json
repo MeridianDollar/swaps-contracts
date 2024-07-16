@@ -51,7 +51,7 @@
 			},
 			"external": {
 				"PRECISION_FACTOR()": "1072",
-				"SMART_ZENMASTER_FACTORY()": "1091",
+				"SMART_FarmMaster_FACTORY()": "1091",
 				"accTokenPerShare()": "1073",
 				"bonusEndBlock()": "1073",
 				"deposit(uint256)": "infinite",
@@ -85,7 +85,7 @@
 		},
 		"methodIdentifiers": {
 			"PRECISION_FACTOR()": "ccd34cd5",
-			"SMART_ZENMASTER_FACTORY()": "ed025518",
+			"SMART_FarmMaster_FACTORY()": "ed025518",
 			"accTokenPerShare()": "8f662915",
 			"bonusEndBlock()": "1aed6553",
 			"deposit(uint256)": "b6b55f25",
@@ -287,7 +287,7 @@
 		},
 		{
 			"inputs": [],
-			"name": "SMART_ZENMASTER_FACTORY",
+			"name": "SMART_FarmMaster_FACTORY",
 			"outputs": [
 				{
 					"internalType": "address",

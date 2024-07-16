@@ -608,7 +608,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/omnidex/omnidex-farms/ZenMaster.sol": "ZenMaster"
+			"contracts/omnidex/omnidex-farms/FarmMaster.sol": "FarmMaster"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -692,7 +692,7 @@
 				"dweb:/ipfs/QmbZtWtdz4nJzmWAG9TSYK3wgAyndNwuKjeCBkgHYDMs5z"
 			]
 		},
-		"contracts/omnidex/omnidex-farms/ZenMaster.sol": {
+		"contracts/omnidex/omnidex-farms/FarmMaster.sol": {
 			"keccak256": "0x489ae2eca8c6e7fdf6de2ab88644d00fbc8d2e05d0bb06487194f2cea2cd3577",
 			"urls": [
 				"bzz-raw://960c430155434cadd8888e60a919584a1f2920f884e0fb3341358da44b2a6f89",

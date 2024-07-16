@@ -5,7 +5,7 @@ import 'https://github.com/OmniDexFinance/helper/blob/master/%40openzeppelin/con
 import 'https://github.com/OmniDexFinance/helper/blob/master/%40openzeppelin/contracts/token/ERC20/SafeERC20.sol';
 import 'https://github.com/OmniDexFinance/helper/blob/master/%40openzeppelin/contracts/math/SafeMath.sol';
 import 'https://github.com/OmniDexFinance/helper/blob/master/%40openzeppelin/contracts/token/ERC20/IERC20.sol';
-import './interfaces/IZenMaster.sol';
+import './interfaces/IFarmMaster.sol';
 
 contract CharmVault is Ownable, Pausable {
     using SafeERC20 for IERC20;
@@ -21,7 +21,7 @@ contract CharmVault is Ownable, Pausable {
     IERC20 public immutable token; // Charm token
     IERC20 public immutable receiptToken; // Syrup token
 
-    IZenMaster public immutable zenmaster;
+    IFarmMaster public immutable FarmMaster;
 
     mapping(address => UserInfo) public userInfo;
 
@@ -50,25 +50,25 @@ contract CharmVault is Ownable, Pausable {
      * @notice Constructor
      * @param _token: Charm token contract
      * @param _receiptToken: Syrup token contract
-     * @param _zenmaster: ZenMaster contract
+     * @param _FarmMaster: FarmMaster contract
      * @param _admin: address of the admin
      * @param _treasury: address of the treasury (collects fees)
      */
     constructor(
         IERC20 _token,
         IERC20 _receiptToken,
-        IZenMaster _zenmaster,
+        IFarmMaster _FarmMaster,
         address _admin,
         address _treasury
     ) public {
         token = _token;
         receiptToken = _receiptToken;
-        zenmaster = _zenmaster;
+        FarmMaster = _FarmMaster;
         admin = _admin;
         treasury = _treasury;
 
         // Infinite approve
-        IERC20(_token).safeApprove(address(_zenmaster), uint256(-1));
+        IERC20(_token).safeApprove(address(_FarmMaster), uint256(-1));
     }
 
     /**
@@ -127,11 +127,11 @@ contract CharmVault is Ownable, Pausable {
     }
 
     /**
-     * @notice Reinvests CHARM tokens into ZenMaster
+     * @notice Reinvests CHARM tokens into FarmMaster
      * @dev Only possible when contract not paused.
      */
     function harvest() external notContract whenNotPaused {
-        IZenMaster(zenmaster).leaveStaking(0);
+        IFarmMaster(FarmMaster).leaveStaking(0);
 
         uint256 bal = available();
         uint256 currentPerformanceFee = bal.mul(performanceFee).div(10000);
@@ -205,11 +205,11 @@ contract CharmVault is Ownable, Pausable {
     }
 
     /**
-     * @notice Withdraws from ZenMaster to Vault without caring about rewards.
+     * @notice Withdraws from FarmMaster to Vault without caring about rewards.
      * @dev EMERGENCY ONLY. Only callable by the contract admin.
      */
     function emergencyWithdraw() external onlyAdmin {
-        IZenMaster(zenmaster).emergencyWithdraw(0);
+        IFarmMaster(FarmMaster).emergencyWithdraw(0);
     }
 
     /**
@@ -246,7 +246,7 @@ contract CharmVault is Ownable, Pausable {
      * @return Expected reward to collect in CHARM
      */
     function calculateHarvestCharmRewards() external view returns (uint256) {
-        uint256 amount = IZenMaster(zenmaster).pendingCharm(0, address(this));
+        uint256 amount = IFarmMaster(FarmMaster).pendingCharm(0, address(this));
         amount = amount.add(available());
         uint256 currentCallFee = amount.mul(callFee).div(10000);
 
@@ -258,7 +258,7 @@ contract CharmVault is Ownable, Pausable {
      * @return Returns total pending charm rewards
      */
     function calculateTotalPendingCharmRewards() external view returns (uint256) {
-        uint256 amount = IZenMaster(zenmaster).pendingCharm(0, address(this));
+        uint256 amount = IFarmMaster(FarmMaster).pendingCharm(0, address(this));
         amount = amount.add(available());
 
         return amount;
@@ -287,7 +287,7 @@ contract CharmVault is Ownable, Pausable {
         uint256 bal = available();
         if (bal < currentAmount) {
             uint256 balWithdraw = currentAmount.sub(bal);
-            IZenMaster(zenmaster).leaveStaking(balWithdraw);
+            IFarmMaster(FarmMaster).leaveStaking(balWithdraw);
             uint256 balAfter = available();
             uint256 diff = balAfter.sub(bal);
             if (diff < balWithdraw) {
@@ -324,20 +324,20 @@ contract CharmVault is Ownable, Pausable {
 
     /**
      * @notice Calculates the total underlying tokens
-     * @dev It includes tokens held by the contract and held in ZenMaster
+     * @dev It includes tokens held by the contract and held in FarmMaster
      */
     function balanceOf() public view returns (uint256) {
-        (uint256 amount, ) = IZenMaster(zenmaster).userInfo(0, address(this));
+        (uint256 amount, ) = IFarmMaster(FarmMaster).userInfo(0, address(this));
         return token.balanceOf(address(this)).add(amount);
     }
 
     /**
-     * @notice Deposits tokens into ZenMaster to earn staking rewards
+     * @notice Deposits tokens into FarmMaster to earn staking rewards
      */
     function _earn() internal {
         uint256 bal = available();
         if (bal > 0) {
-            IZenMaster(zenmaster).enterStaking(bal);
+            IFarmMaster(FarmMaster).enterStaking(bal);
         }
     }
 

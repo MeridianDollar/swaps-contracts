@@ -6,6 +6,17 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [
+					{
+						"internalType": "contract CharmToken",
+						"name": "_charm",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -212,6 +223,37 @@
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_from",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "burn",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "charm",
+				"outputs": [
+					{
+						"internalType": "contract CharmToken",
+						"name": "",
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -542,6 +584,24 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "safeCharmTransfer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "symbol",
 				"outputs": [
@@ -762,7 +822,7 @@
 					"notice": "Determine the prior number of votes for an account as of a block number"
 				},
 				"mint(address,uint256)": {
-					"notice": "Creates `_amount` token to `_to`. Must only be called by the owner (ZenMaster)."
+					"notice": "Creates `_amount` token to `_to`. Must only be called by the owner (FarmMaster)."
 				},
 				"nonces(address)": {
 					"notice": "A record of states for signing / validating signatures"
@@ -776,7 +836,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/omnidex/omnidex-farms/CharmToken.sol": "CharmToken"
+			"contracts/omnidex/omnidex-farms/xCharm.sol": "SpellBar"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -843,6 +903,13 @@
 			"urls": [
 				"bzz-raw://91f8753716422cfb19f16c23a2cc626ef14c9185873cd7cb4056aa8e40d68537",
 				"dweb:/ipfs/QmTfHJDYuXeXG1KjUu9qkbJAZ53hpN2S9xeqL9Z72xggTQ"
+			]
+		},
+		"contracts/omnidex/omnidex-farms/xCharm.sol": {
+			"keccak256": "0x2114e6845a541600e812872d703c75c04282c6f0566624820ecfc245be37f399",
+			"urls": [
+				"bzz-raw://48ce287ec9da37e23e65be0ec1ec0a6d0d915109f9736035f8898dea590e5ee7",
+				"dweb:/ipfs/QmbZtWtdz4nJzmWAG9TSYK3wgAyndNwuKjeCBkgHYDMs5z"
 			]
 		}
 	},

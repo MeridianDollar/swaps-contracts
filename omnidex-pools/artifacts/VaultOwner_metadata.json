@@ -346,7 +346,7 @@
 				"dweb:/ipfs/QmbBaEzdpavcusDYAezrscFkPUHxEf64d5J5WE4bGPPEab"
 			]
 		},
-		"omnidex-pools/interfaces/IZenMaster.sol": {
+		"omnidex-pools/interfaces/IFarmMaster.sol": {
 			"keccak256": "0x7240709957fa9d53c4d45d5590e99b6efe6ff32b30faca9b3fce4636561231be",
 			"urls": [
 				"bzz-raw://70d91f111011ad9f9fa9e766ac3271058105862e9c912adde5d87cd3be69fdf5",

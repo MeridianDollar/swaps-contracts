@@ -171,7 +171,7 @@
 				"withdrawAll()": "infinite",
 				"withdrawFee()": "1138",
 				"withdrawFeePeriod()": "1116",
-				"zenmaster()": "infinite"
+				"FarmMaster()": "infinite"
 			},
 			"internal": {
 				"_earn()": "infinite",
@@ -217,7 +217,7 @@
 			"withdrawAll()": "853828b6",
 			"withdrawFee()": "e941fa78",
 			"withdrawFeePeriod()": "df10b4e6",
-			"zenmaster()": "18037b33"
+			"FarmMaster()": "18037b33"
 		}
 	},
 	"abi": [
@@ -234,8 +234,8 @@
 					"type": "address"
 				},
 				{
-					"internalType": "contract IZenMaster",
-					"name": "_zenmaster",
+					"internalType": "contract IFarmMaster",
+					"name": "_FarmMaster",
 					"type": "address"
 				},
 				{
@@ -871,10 +871,10 @@
 		},
 		{
 			"inputs": [],
-			"name": "zenmaster",
+			"name": "FarmMaster",
 			"outputs": [
 				{
-					"internalType": "contract IZenMaster",
+					"internalType": "contract IFarmMaster",
 					"name": "",
 					"type": "address"
 				}

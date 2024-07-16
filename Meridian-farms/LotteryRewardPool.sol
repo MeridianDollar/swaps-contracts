@@ -4,19 +4,19 @@ import '@pancakewap/pancharm-swap-lib/contracts/token/BEP20/IBEP20.sol';
 import '@pancakewap/pancharm-swap-lib/contracts/token/BEP20/SafeBEP20.sol';
 import '@pancakeswap/pancharm-swap-lib/contracts/access/Ownable.sol';
 
-import './ZenMaster.sol';
+import './FarmMaster.sol';
 
 contract LotteryRewardPool is Ownable {
     using SafeBEP20 for IBEP20;
 
-    ZenMaster public master;
+    FarmMaster public master;
     address public adminAddress;
     address public receiver;
     IBEP20 public lptoken;
     IBEP20 public charm;
 
     constructor(
-        ZenMaster _master,
+        FarmMaster _master,
         IBEP20 _charm,
         address _admin,
         address _receiver

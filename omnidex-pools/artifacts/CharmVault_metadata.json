@@ -18,8 +18,8 @@
 						"type": "address"
 					},
 					{
-						"internalType": "contract IZenMaster",
-						"name": "_zenmaster",
+						"internalType": "contract IFarmMaster",
+						"name": "_FarmMaster",
 						"type": "address"
 					},
 					{
@@ -655,10 +655,10 @@
 			},
 			{
 				"inputs": [],
-				"name": "zenmaster",
+				"name": "FarmMaster",
 				"outputs": [
 					{
-						"internalType": "contract IZenMaster",
+						"internalType": "contract IFarmMaster",
 						"name": "",
 						"type": "address"
 					}
@@ -674,7 +674,7 @@
 					"details": "The contract puts 100% of the tokens to work."
 				},
 				"balanceOf()": {
-					"details": "It includes tokens held by the contract and held in ZenMaster"
+					"details": "It includes tokens held by the contract and held in FarmMaster"
 				},
 				"calculateHarvestCharmRewards()": {
 					"returns": {
@@ -692,7 +692,7 @@
 						"_receiptToken": ": Syrup token contract",
 						"_token": ": Charm token contract",
 						"_treasury": ": address of the treasury (collects fees)",
-						"_zenmaster": ": ZenMaster contract"
+						"_FarmMaster": ": FarmMaster contract"
 					}
 				},
 				"deposit(uint256)": {
@@ -771,13 +771,13 @@
 					"notice": "Deposits funds into the Charm Vault"
 				},
 				"emergencyWithdraw()": {
-					"notice": "Withdraws from ZenMaster to Vault without caring about rewards."
+					"notice": "Withdraws from FarmMaster to Vault without caring about rewards."
 				},
 				"getPricePerFullShare()": {
 					"notice": "Calculates the price per share"
 				},
 				"harvest()": {
-					"notice": "Reinvests CHARM tokens into ZenMaster"
+					"notice": "Reinvests CHARM tokens into FarmMaster"
 				},
 				"inCaseTokensGetStuck(address)": {
 					"notice": "Withdraw unexpected tokens sent to the Charm Vault"
@@ -895,7 +895,7 @@
 				"dweb:/ipfs/QmbBBHs4uxTtpxVec1hMi6zBMsehfuayLnqd6hUpXx3yfc"
 			]
 		},
-		"omnidex-pools/interfaces/IZenMaster.sol": {
+		"omnidex-pools/interfaces/IFarmMaster.sol": {
 			"keccak256": "0x7240709957fa9d53c4d45d5590e99b6efe6ff32b30faca9b3fce4636561231be",
 			"urls": [
 				"bzz-raw://70d91f111011ad9f9fa9e766ac3271058105862e9c912adde5d87cd3be69fdf5",
