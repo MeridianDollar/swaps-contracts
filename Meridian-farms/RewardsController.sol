@@ -61,6 +61,7 @@ contract RewardsController is Ownable, CheckContract {
         rewardManager = _rewardManager;
         rewardToken = IERC20(_rewardToken);
         averageBlockTime = _averageBlockTime.mul(1e18).div(10);
+        rewardsStartTime = 33333333333;
         isInitialized = true;
         renounceOwnership();
         emit RewardManagerChanged(_rewardManager);
@@ -114,22 +115,23 @@ contract RewardsController is Ownable, CheckContract {
         if(rewardsPerBlock <= 0 ) {
             return 0;
         }
+        uint256 rewardsPerSecond = rewardsPerBlock.mul(1e18).div(averageBlockTime);
         if( block.timestamp >= rewardsStartTime) {
-            return block.timestamp.add(rewardToken.balanceOf(address(this)).div(rewardsPerBlock));
+            return block.timestamp.add(rewardToken.balanceOf(address(this)).div(rewardsPerSecond));
         }
-        return rewardsStartTime.add(rewardToken.balanceOf(address(this)).div(rewardsPerBlock));
+        return rewardsStartTime.add(rewardToken.balanceOf(address(this)).div(rewardsPerSecond));
     }
 
-    function getRewardsStartBlock() public view returns (uint256) {
+     function getRewardsStartBlock() public view returns (uint256) {
         uint256 currentBlockNumber = block.number;
         uint256 currentTimestamp = block.timestamp;
         if(rewardsStartTime <= currentTimestamp){
-            uint256 timeDifference = currentTimestamp - rewardsStartTime;
-            uint256 estimatedBlocks = timeDifference * (1 ether / averageBlockTime);
-            return currentBlockNumber - estimatedBlocks;
+            uint256 timeDifference = currentTimestamp.sub(rewardsStartTime);
+            uint256 estimatedBlocks = timeDifference.mul(1 ether).div(averageBlockTime);
+            return currentBlockNumber.sub(estimatedBlocks);
         }
-        uint256 timeDifference = rewardsStartTime - currentTimestamp;
-        uint256 estimatedBlocks = timeDifference * (1 ether / averageBlockTime);
-        return currentBlockNumber + estimatedBlocks;
+        uint256 timeDifference = rewardsStartTime.sub(currentTimestamp);
+        uint256 estimatedBlocks = timeDifference.mul(1 ether).div(averageBlockTime);
+        return currentBlockNumber.add(estimatedBlocks);
     }
 }
